@@ -110,8 +110,8 @@ router.put("/", (req, res) => {
   res.send(updatedBook);
 });
 
-router.delete("/:id", (req, res) => {
-  if (!books.includes(req.params.id)) {
+router.delete("/:id", v.param_id, validationCheck, (req, res) => {
+  if (!books.some((book) => book.id === parseInt(req.params.id))) {
     const error = new Error("Book not found");
     error.status = 404;
     throw error;

@@ -1,6 +1,11 @@
 const { body, query, param, validationResult } = require("express-validator");
 
 const booksValidator = {
+  param_id: param("id")
+    .exists()
+    .withMessage("is missing")
+    .isInt()
+    .withMessage("must be an integer"),
   query_id: query("id").optional().isInt().withMessage("must be an integer"),
 };
 
