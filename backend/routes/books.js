@@ -69,46 +69,63 @@ router.get("/", v.query_id, validationCheck, (req, res) => {
   res.send(book);
 });
 
-router.post("/", (req, res) => {
-  const { title, author, year_published, genre } = req.body;
-  let maxId = 0;
-  books.forEach((b) => (maxId = Math.max(maxId, b.id)));
-  const newBook = {
-    id: maxId + 1,
-    title: title,
-    author: author,
-    year_published: parseInt(year_published),
-    genre: genre,
-  };
-  books.push(newBook);
-  res.send(newBook);
-});
-
-router.put("/", (req, res) => {
-  let bookFound = false;
-  const { id, title, author, year_published, genre } = req.body;
-  const updatedBook = {
-    id: parseInt(id),
-    title: title,
-    author: author,
-    year_published: parseInt(year_published),
-    genre: genre,
-  };
-
-  books = books.map((book) => {
-    if (book.id != id) return book;
-    bookFound = true;
-    return updatedBook;
-  });
-
-  if (!bookFound) {
-    const error = new Error("Book not found");
-    error.status = 404;
-    throw error;
+router.post(
+  "/",
+  v.body_title,
+  v.body_author,
+  v.body_year_published,
+  v.body_genre,
+  validationCheck,
+  (req, res) => {
+    const { title, author, year_published, genre } = req.body;
+    let maxId = 0;
+    books.forEach((b) => (maxId = Math.max(maxId, b.id)));
+    const newBook = {
+      id: maxId + 1,
+      title: title,
+      author: author,
+      year_published: parseInt(year_published),
+      genre: genre,
+    };
+    books.push(newBook);
+    res.send(newBook);
   }
+);
 
-  res.send(updatedBook);
-});
+router.put(
+  "/",
+  v.body_id,
+  v.body_title,
+  v.body_author,
+  v.body_year_published,
+  v.body_genre,
+  validationCheck,
+  (req, res) => {
+    let bookFound = false;
+    const { id, title, author, year_published, genre } = req.body;
+    const updatedBook = {
+      id: parseInt(id),
+      title: title,
+      author: author,
+      year_published: parseInt(year_published),
+      genre: genre,
+    };
+
+    books = books.map((book) => {
+      if (book.id != id) return book;
+      bookFound = true;
+      return updatedBook;
+    });
+
+    if (!bookFound) {
+      const error = new Error("Book not found");
+      error.status = 404;
+      throw error;
+    }
+
+    res.send(updatedBook);
+  }
+);
 
 router.delete("/:id", v.param_id, validationCheck, (req, res) => {
   if (!books.some((book) => book.id === parseInt(req.params.id))) {
