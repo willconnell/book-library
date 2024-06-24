@@ -52,7 +52,6 @@ let books = [
   },
 ];
 
-// GET books
 router.get("/", (req, res) => {
   const id = req.query.id != undefined ? parseInt(req.query.id) : undefined;
   if (id === undefined) res.send(books);
@@ -68,7 +67,6 @@ router.get("/", (req, res) => {
   res.send(book);
 });
 
-// POST new book
 router.post("/", (req, res) => {
   const { title, author, year_published, genre } = req.body;
   let maxId = 0;
@@ -82,6 +80,17 @@ router.post("/", (req, res) => {
   };
   books.push(newBook);
   res.send(newBook);
+});
+
+router.delete("/:id", (req, res) => {
+  if (!books.includes(req.params.id)) {
+    const error = new Error("Book not found");
+    error.status = 404;
+    throw error;
+  }
+
+  books = books.filter((book) => book.id != req.params.id);
+  res.send(books);
 });
 
 module.exports = router;
