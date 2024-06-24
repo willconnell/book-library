@@ -82,6 +82,32 @@ router.post("/", (req, res) => {
   res.send(newBook);
 });
 
+router.put("/", (req, res) => {
+  let bookFound = false;
+  const { id, title, author, year_published, genre } = req.body;
+  const updatedBook = {
+    id: parseInt(id),
+    title: title,
+    author: author,
+    year_published: parseInt(year_published),
+    genre: genre,
+  };
+
+  books = books.map((book) => {
+    if (book.id != id) return book;
+    bookFound = true;
+    return updatedBook;
+  });
+
+  if (!bookFound) {
+    const error = new Error("Book not found");
+    error.status = 404;
+    throw error;
+  }
+
+  res.send(updatedBook);
+});
+
 router.delete("/:id", (req, res) => {
   if (!books.includes(req.params.id)) {
     const error = new Error("Book not found");
