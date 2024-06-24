@@ -52,6 +52,7 @@ let books = [
   },
 ];
 
+// GET books
 router.get("/", (req, res) => {
   const id = req.query.id != undefined ? parseInt(req.query.id) : undefined;
   if (id === undefined) res.send(books);
@@ -65,6 +66,22 @@ router.get("/", (req, res) => {
   }
 
   res.send(book);
+});
+
+// POST new book
+router.post("/", (req, res) => {
+  const { title, author, year_published, genre } = req.body;
+  let maxId = 0;
+  books.forEach((b) => (maxId = Math.max(maxId, b.id)));
+  const newBook = {
+    id: maxId + 1,
+    title: title,
+    author: author,
+    year_published: parseInt(year_published),
+    genre: genre,
+  };
+  books.push(newBook);
+  res.send(newBook);
 });
 
 module.exports = router;
