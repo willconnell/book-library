@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const v = require("./validate").booksValidator;
+const v = require("../validate").booksValidator;
+const validationCheck = require("../validate").validationCheck;
 let books = [
   {
     id: 1,
@@ -53,7 +54,7 @@ let books = [
   },
 ];
 
-router.get("/", v.query_id, (req, res) => {
+router.get("/", v.query_id, validationCheck, (req, res) => {
   const id = req.query.id != undefined ? parseInt(req.query.id) : undefined;
   if (id === undefined) res.send(books);
 
