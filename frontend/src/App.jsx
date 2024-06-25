@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/edit/:id",
+    path: "/edit/:bookId",
     element: <BookForm mode="edit" />,
     errorElement: <ErrorPage />,
   },

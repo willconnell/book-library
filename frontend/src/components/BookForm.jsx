@@ -1,5 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { updateBook, createBook } from "../api/books";
 import Button from "./Button";
 import Input from "./Input";
 import styles from "./BookForm.module.css";
@@ -17,6 +18,33 @@ export default function BookForm({ mode }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (validateInputs()) {
+      switch (mode.toLowerCase()) {
+        case "edit":
+          console.log("edit", bookId, {
+            id: bookId,
+            title: title,
+            author: author,
+            year_published: yearPublished,
+            genre: genre,
+          });
+          await updateBook({
+            id: bookId,
+            title: title,
+            author: author,
+            year_published: yearPublished,
+            genre: genre,
+          });
+          break;
+        case "create":
+          await createBook({
+            title: title,
+            author: author,
+            year_published: yearPublished,
+            genre: genre,
+          });
+          break;
+      }
+
       navigate("/");
     }
   }

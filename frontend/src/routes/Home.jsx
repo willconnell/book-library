@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import BookGrid from "../components/BookGrid";
-import { getBooks } from "../../api/books";
+import { getBooks } from "../api/books";
 
 function Home() {
   const [books, setBooks] = useState([]);
