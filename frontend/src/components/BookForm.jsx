@@ -36,13 +36,6 @@ export default function BookForm({ mode }) {
     if (validateInputs()) {
       switch (mode.toLowerCase()) {
         case "edit":
-          console.log("edit", bookId, {
-            id: bookId,
-            title: title,
-            author: author,
-            year_published: yearPublished,
-            genre: genre,
-          });
           await updateBook({
             id: bookId,
             title: title,
