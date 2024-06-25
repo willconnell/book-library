@@ -7,11 +7,16 @@ import Button from "../components/Button";
 import styles from "./Home.module.css";
 
 function Home() {
-  const { books, setBooks } = useStore();
+  const { books, setBooks, setErrorMessage } = useStore();
 
   async function fetchBooks() {
-    const books = await getBooks();
-    setBooks(books);
+    try {
+      const books = await getBooks();
+      setBooks(books);
+    } catch (e) {
+      console.error(e);
+      setErrorMessage("There was an issue fetching books");
+    }
   }
 
   useEffect(() => {
