@@ -8,7 +8,7 @@ import styles from "./BookForm.module.css";
 
 export default function BookForm({ mode }) {
   const { bookId } = useParams();
-  const { books } = useStore();
+  const { books, setErrorMessage } = useStore();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -24,7 +24,15 @@ export default function BookForm({ mode }) {
   // Grab book from store; if not in store, fetch from API
   async function fetchBook() {
     let book = books.find((b) => b.id === parseInt(bookId));
-    if (book === undefined) book = await getBooks(bookId);
+    if (book === undefined) {
+      try {
+        book = await getBooks(bookId);
+      } catch (e) {
+        console.error(e);
+        setErrorMessage("There was an issue fetching this book");
+        return;
+      }
+    }
     setTitle(book.title);
     setAuthor(book.author);
     setYearPublished(book.year_published);
@@ -36,21 +44,33 @@ export default function BookForm({ mode }) {
     if (validateInputs()) {
       switch (mode.toLowerCase()) {
         case "edit":
-          await updateBook({
-            id: bookId,
-            title: title,
-            author: author,
-            year_published: yearPublished,
-            genre: genre,
-          });
+          try {
+            await updateBook({
+              id: bookId,
+              title: title,
+              author: author,
+              year_published: yearPublished,
+              genre: genre,
+            });
+          } catch (e) {
+            console.error(e);
+            setErrorMessage("There was an issue updating this book");
+            return;
+          }
           break;
         case "create":
-          await createBook({
-            title: title,
-            author: author,
-            year_published: yearPublished,
-            genre: genre,
-          });
+          try {
+            await createBook({
+              title: title,
+              author: author,
+              year_published: yearPublished,
+              genre: genre,
+            });
+          } catch (e) {
+            console.error(e);
+            setErrorMessage("There was an issue creating this book");
+            return;
+          }
           break;
       }
 
