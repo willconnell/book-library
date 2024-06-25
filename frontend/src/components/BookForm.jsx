@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "./Button";
+import Input from "./Input";
 import styles from "./BookForm.module.css";
 
 export default function BookForm({ mode }) {
@@ -21,28 +22,28 @@ export default function BookForm({ mode }) {
       <h1>{mode.toLowerCase() === "edit" ? "Edit" : "Add"} Book</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.inputContainer}>
-          <input
+          <Input
             type="text"
             name="Title"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <input
+          <Input
             type="text"
             name="Author"
             placeholder="Author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
-          <input
+          <Input
             type="number"
             name="Year Published"
             placeholder="Year Published"
             value={yearPublished}
             onChange={(e) => setYearPublished(e.target.value)}
           />
-          <input
+          <Input
             type="text"
             name="Genre"
             placeholder="Genre"
