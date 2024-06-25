@@ -4,11 +4,10 @@ const app = express();
 const port = 4000;
 const booksRouter = require("./routes/books");
 
-// Allow requests from http://localhost:3173
+// Allow requests from frontend localhost
 app.use(
   cors({
-    origin: "http://127.0.0.1:3173",
-    origin: "http://localhost:3173",
+    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
   })
 );
 
