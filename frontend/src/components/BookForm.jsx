@@ -6,6 +6,7 @@ import styles from "./BookForm.module.css";
 
 export default function BookForm({ mode }) {
   const { bookId } = useParams();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -13,8 +14,23 @@ export default function BookForm({ mode }) {
   const [genre, setGenre] = useState("");
   const [error, setError] = useState("");
 
-  function handleSubmit() {
-    return;
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (validateInputs()) {
+      navigate("/");
+    }
+  }
+
+  function validateInputs() {
+    if (!title.length) setError("Title is required");
+    else if (!author.length) setError("Author is required");
+    else if (!String(yearPublished).length) setError("Year Published required");
+    else if (!genre.length) setError("Genre is required");
+    else {
+      setError("");
+      return true;
+    }
+    return false;
   }
 
   return (
