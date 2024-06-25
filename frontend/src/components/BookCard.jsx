@@ -1,4 +1,5 @@
 import styles from "./BookCard.module.css";
+import Button from "./Button";
 
 function BookCard({ book }) {
   return (
@@ -10,8 +11,8 @@ function BookCard({ book }) {
         {book.genre} <br />
       </div>
       <div className={styles.cardButtons}>
-        <button>delete</button>
-        <button>edit</button>
+        <Button label="Delete" />
+        <Button label="Edit" />
       </div>
     </div>
   );
