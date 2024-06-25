@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../api/books";
+import { Link } from "react-router-dom";
 import useStore from "../store/store.js";
 import BookGrid from "../components/BookGrid";
 import Button from "../components/Button";
@@ -20,11 +21,9 @@ function Home() {
   return (
     <>
       <h1>Book Library</h1>
-      <Button
-        label="Add Book"
-        className={styles.addButton}
-        onClick={() => navigate("/create")}
-      />
+      <Link to="/create">
+        <Button label="Add Book" className={styles.addButton} />
+      </Link>
       <BookGrid books={books}></BookGrid>
     </>
   );

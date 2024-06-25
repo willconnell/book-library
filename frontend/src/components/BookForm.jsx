@@ -1,12 +1,14 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { updateBook, createBook } from "../api/books";
+import { updateBook, createBook, getBooks } from "../api/books";
+import useStore from "../store/store.js";
 import Button from "./Button";
 import Input from "./Input";
 import styles from "./BookForm.module.css";
 
 export default function BookForm({ mode }) {
   const { bookId } = useParams();
+  const { books } = useStore();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -14,6 +16,20 @@ export default function BookForm({ mode }) {
   const [yearPublished, setYearPublished] = useState("");
   const [genre, setGenre] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (mode.toLowerCase() === "edit") fetchBook();
+  }, []);
+
+  // Grab book from store; if not in store, fetch from API
+  async function fetchBook() {
+    let book = books.find((b) => b.id === parseInt(bookId));
+    if (book === undefined) book = await getBooks(bookId);
+    setTitle(book.title);
+    setAuthor(book.author);
+    setYearPublished(book.year_published);
+    setGenre(book.genre);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
