@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home.jsx";
 import ErrorPage from "./routes/ErrorPage.jsx";
 import BookForm from "./components/BookForm.jsx";
+import ErrorBanner from "./components/ErrorBanner.jsx";
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -23,7 +24,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ErrorBanner />
+      <RouterProvider router={router} />;
+    </>
+  );
 }
 
 export default App;

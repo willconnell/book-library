@@ -1,0 +1,22 @@
+.errorBanner {
+  background-color: rgb(255, 130, 130);
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  transition: opacity 0.5s ease-out;
+  display: flex;
+  justify-content: space-between;
+}
+
+.errorText {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.closeIcon {
+  cursor: pointer;
+}
