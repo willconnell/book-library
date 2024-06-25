@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./BookCard.module.css";
 import Button from "./Button";
 
@@ -12,7 +13,9 @@ function BookCard({ book }) {
       </div>
       <div className={styles.cardButtons}>
         <Button label="Delete" />
-        <Button label="Edit" />
+        <Link to={`/edit/${book.id}`}>
+          <Button label="Edit" />
+        </Link>
       </div>
     </div>
   );
