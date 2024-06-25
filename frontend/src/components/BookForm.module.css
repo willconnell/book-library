@@ -1,0 +1,18 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.errorText {
+  margin-top: 20px;
+  width: 230px;
+  color: red;
+  font-weight: bold;
+}

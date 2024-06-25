@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Button from "../components/Button";
+import Button from "./Button";
+import styles from "./BookForm.module.css";
 
 export default function BookForm({ mode }) {
   const { bookId } = useParams();
@@ -19,7 +20,7 @@ export default function BookForm({ mode }) {
     <>
       <h1>{mode.toLowerCase() === "edit" ? "Edit" : "Add"} Book</h1>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={styles.inputContainer}>
           <input
             type="text"
             name="Title"
@@ -49,7 +50,8 @@ export default function BookForm({ mode }) {
             onChange={(e) => setGenre(e.target.value)}
           />
         </div>
-        <div>
+        <div className={styles.errorText}>{error}</div>
+        <div className={styles.actionButtons}>
           <Link to="/">
             <Button type="button" label="Cancel" />
           </Link>
