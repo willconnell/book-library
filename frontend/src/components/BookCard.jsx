@@ -5,16 +5,22 @@ import Button from "./Button";
 import useStore from "../store/store";
 
 function BookCard({ book }) {
-  const { setBooks } = useStore();
+  const { setBooks, setErrorMessage } = useStore();
 
   function onDelete() {
     const shouldDelete = confirm(
       "Are you sure you want to delete " + book.title + "?"
     );
-    if (shouldDelete)
-      deleteBook(book.id).then(() => {
-        getBooks().then((books) => setBooks(books));
-      });
+    if (shouldDelete) {
+      deleteBook(book.id)
+        .then(() => {
+          getBooks().then((books) => setBooks(books));
+        })
+        .catch((e) => {
+          console.error(e);
+          setErrorMessage(`There was an issue deleting book ${book.title}`);
+        });
+    }
   }
 
   return (
