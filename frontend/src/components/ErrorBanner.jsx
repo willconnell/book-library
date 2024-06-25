@@ -1,14 +1,19 @@
 import styles from "./ErrorBanner.module.css";
+import useStore from "../store/store.js";
 
 export default function ErrorBanner() {
+  const { errorMessage, setErrorMessage } = useStore();
+
   function handleClose() {
-    console.log("close");
+    setErrorMessage("");
   }
+
+  if (errorMessage === "") return null;
 
   return (
     <>
       <div className={styles.errorBanner}>
-        <span className={styles.errorText}>Error Message</span>
+        <span className={styles.errorText}>{errorMessage}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
