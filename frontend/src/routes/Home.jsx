@@ -25,7 +25,7 @@ function Home() {
 
   return (
     <>
-      <h1>Book Library</h1>
+      <h1 data-testid="title">Book Library</h1>
       <Link to="/create">
         <Button label="Add Book" className={styles.addButton} />
       </Link>

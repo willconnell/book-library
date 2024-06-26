@@ -27,9 +27,9 @@ function BookCard({ book }) {
     <div className={styles.bookCard}>
       <div className={styles.bookData}>
         <h3>{book.title}</h3>
-        by {book.author} <br />
-        {book.year_published} <br />
-        {book.genre} <br />
+        <div>by {book.author}</div>
+        <div>{book.year_published}</div>
+        <div>{book.genre}</div>
       </div>
       <div className={styles.cardButtons}>
         <Button label="Delete" onClick={onDelete} />
